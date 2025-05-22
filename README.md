@@ -162,7 +162,7 @@ praktikan2:praktikan2
 </div>
 
 <div align="center">
-  <img src="  https://github.com/user-attachments/assets/aca41c5c-88c1-4fae-a55e-a93f73cc701f" width="1200" />
+  <img src="https://github.com/user-attachments/assets/aca41c5c-88c1-4fae-a55e-a93f73cc701f" width="1200" />
 </div>
 
   
