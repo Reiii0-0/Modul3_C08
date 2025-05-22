@@ -269,6 +269,10 @@ Langkah ini saya lakukan untuk memastikan bahwa dalam sistem operasi ini, hanya 
   ```
   Code 2
   ```
+  chmod 644 ~/osboot/BudiBebanKelompok/etc/banner.txt
+  ```
+  Code 3
+  ```
   cat > ~/osboot/BudiBebanKelompok/init <<'EOF'
   #!/bin/sh
 
@@ -293,25 +297,8 @@ Langkah ini saya lakukan untuk memastikan bahwa dalam sistem operasi ini, hanya 
   wait
   EOF
   ```
-  Code 3
-  ```
-  cat > ~/osboot/BudiBebanKelompok/etc/profile <<'EOF'
-  #!/bin/sh
-
-  clear
-  cat /etc/banner.txt
-  echo ""
-  echo "=== Selamat Datang di BudiBebanOS ==="
-  echo "User    : $(whoami)"
-  echo "Waktu   : $(date)"
-  echo "Hostname: $(hostname)"
-  echo ""
-  EOF
-  ```
   Code 4
   ```
-  chmod 644 ~/osboot/BudiBebanKelompok/etc/banner.txt
-  chmod 755 ~/osboot/BudiBebanKelompok/etc/profile
   chmod +x ~/osboot/BudiBebanKelompok/init
   ```
   Code 5
@@ -322,20 +309,24 @@ Langkah ini saya lakukan untuk memastikan bahwa dalam sistem operasi ini, hanya 
 
 - **Explanation:**
 
-  Untuk menampilkan banner ASCII Art bertuliskan "Welcome to OS'25", dilakukan beberapa langkah modifikasi terhadap sistem:
+Untuk menampilkan banner bertuliskan "Welcome to OS'25" dalam bentuk ASCII Art saat proses booting, dilakukan lima tahapan berikut:
 
-  Pada code 1, dibuat sebuah file bernama banner.txt yang berisi teks dalam bentuk ASCII Art menggunakan generator daring. File ini diletakkan pada direktori /etc agar dapat diakses baik saat proses boot maupun setelah login.
+Pada code 1, dibuat file banner.txt yang berisi teks ASCII Art sesuai permintaan. File ini disimpan di dalam direktori /etc agar dapat diakses oleh proses boot.
 
-  Selanjutnya, pada code 2, file init dimodifikasi dengan menambahkan perintah cat /etc/banner.txt dan clear sebelum menampilkan pesan booting. Hal ini bertujuan agar banner ditampilkan segera setelah sistem selesai melakukan proses mounting dan sebelum menjalankan terminal.
+Selanjutnya, pada code 2, file banner.txt diberikan hak akses baca (read) agar dapat dibaca oleh skrip init saat sistem menyala.
 
-  Kemudian, pada code 3, dilakukan modifikasi terhadap file profile agar banner yang sama juga ditampilkan setiap kali pengguna berhasil login. Selain banner, ditambahkan informasi tambahan seperti nama pengguna, waktu saat ini, dan hostname sistem.
+Pada code 3, skrip init dimodifikasi dengan menambahkan satu baris perintah cat /etc/banner.txt setelah proses mounting. Tujuannya adalah agar banner tampil pada layar sebelum proses booting dilanjutkan. Hanya satu baris ini yang ditambahkan untuk menjaga skrip tetap sederhana dan sesuai fungsi.
 
-  Pada code 4, dilakukan penyesuaian hak akses terhadap file konfigurasi agar sistem dapat membaca dan menjalankan file dengan benar. Sedangkan pada code 5, direktori sistem dikompresi ulang menjadi berkas initramfs untuk digunakan dalam proses booting.
+Kemudian, pada code 4, file init diberikan hak akses eksekusi agar dapat dijalankan oleh sistem saat proses inisialisasi.
+
+Terakhir, pada code 5, seluruh isi direktori sistem dikompresi ulang menggunakan cpio dan gzip untuk menghasilkan berkas initramfs yang akan digunakan saat proses boot berlangsung.
+
+Dengan tahapan-tahapan ini, banner ASCII Art ditampilkan secara otomatis setiap kali sistem melakukan booting, sesuai dengan permintaan soal.
 
 - **Screenshot:**
 
   <div align="center">
-  <img src="https://github.com/user-attachments/assets/26de5364-792e-4ba2-95ab-3be11d9ff80b" width="1200" />
+  <img src="https://github.com/user-attachments/assets/eb81632a-b36a-4005-a9e1-bcd1da4739c0" width="1200" />
 </div>
 
 ### Soal 7
@@ -352,11 +343,22 @@ Langkah ini saya lakukan untuk memastikan bahwa dalam sistem operasi ini, hanya 
 
 - **Explanation:**
 
-  `put your answer here`
+Untuk menambahkan fitur kata sambutan setelah login, dilakukan beberapa tahapan konfigurasi sebagai berikut:
+
+Pada code 1, dibuat file profile di dalam direktori /etc. File ini berfungsi sebagai skrip yang akan dijalankan secara otomatis setiap kali seorang pengguna berhasil login melalui terminal. Di dalam skrip tersebut ditambahkan perintah echo "Helloo $(whoami)!" untuk menyapa pengguna berdasarkan nama login yang aktif, serta menampilkan waktu login melalui perintah date.
+
+Selanjutnya, pada code 2, file profile diberikan hak akses eksekusi agar dapat dijalankan oleh shell login secara otomatis. Hak akses ini penting agar sistem dapat mengeksekusi skrip tersebut tanpa kendala.
+
+Terakhir, pada code 3, seluruh isi direktori sistem dikompresi ulang menjadi berkas initramfs menggunakan perintah cpio dan gzip. Hal ini diperlukan agar perubahan yang dilakukan terhadap sistem dapat diterapkan saat proses booting berikutnya.
+
+Dengan langkah-langkah ini, sistem akan menampilkan kalimat sambutan yang bersifat personal setiap kali pengguna login, sebagaimana diminta dalam soal.
 
 - **Screenshot:**
 
-  `put your answer here`
+  <div align="center">
+  <img src="https://github.com/user-attachments/assets/fe17f2ae-225d-4bee-8b51-4857f7ae28ee" width="1200" />
+</div>
+
 
 ### Soal 8
 
