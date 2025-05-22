@@ -203,7 +203,7 @@ Langkah ini saya lakukan untuk memastikan bahwa dalam sistem operasi ini, hanya 
   <div align="center">
   <img src="https://github.com/user-attachments/assets/98e399bc-8788-4e76-b75f-a3a926a6447b" width="1200" />
 </div>
- <div align="center">
+  <div align="center">
   <img src="https://github.com/user-attachments/assets/534b0719-607f-4514-b5a9-9c9b9320acff" width="1200" />
 </div>
 
@@ -309,19 +309,13 @@ Langkah ini saya lakukan untuk memastikan bahwa dalam sistem operasi ini, hanya 
 
 - **Explanation:**
 
-Untuk menampilkan banner bertuliskan "Welcome to OS'25" dalam bentuk ASCII Art saat proses booting, dilakukan lima tahapan berikut:
-
-Pada code 1, dibuat file banner.txt yang berisi teks ASCII Art sesuai permintaan. File ini disimpan di dalam direktori /etc agar dapat diakses oleh proses boot.
-
-Selanjutnya, pada code 2, file banner.txt diberikan hak akses baca (read) agar dapat dibaca oleh skrip init saat sistem menyala.
-
-Pada code 3, skrip init dimodifikasi dengan menambahkan satu baris perintah cat /etc/banner.txt setelah proses mounting. Tujuannya adalah agar banner tampil pada layar sebelum proses booting dilanjutkan. Hanya satu baris ini yang ditambahkan untuk menjaga skrip tetap sederhana dan sesuai fungsi.
-
-Kemudian, pada code 4, file init diberikan hak akses eksekusi agar dapat dijalankan oleh sistem saat proses inisialisasi.
-
-Terakhir, pada code 5, seluruh isi direktori sistem dikompresi ulang menggunakan cpio dan gzip untuk menghasilkan berkas initramfs yang akan digunakan saat proses boot berlangsung.
-
-Dengan tahapan-tahapan ini, banner ASCII Art ditampilkan secara otomatis setiap kali sistem melakukan booting, sesuai dengan permintaan soal.
+  Untuk menampilkan banner bertuliskan "Welcome to OS'25" dalam bentuk ASCII Art saat proses booting, dilakukan lima tahapan berikut:
+  Pada code 1, dibuat file banner.txt yang berisi teks ASCII Art sesuai permintaan. File ini disimpan di dalam direktori /etc agar dapat diakses oleh proses boot.
+  Selanjutnya, pada code 2, file banner.txt diberikan hak akses baca (read) agar dapat dibaca oleh skrip init saat sistem menyala.
+  Pada code 3, skrip init dimodifikasi dengan menambahkan satu baris perintah cat /etc/banner.txt setelah proses mounting. Tujuannya adalah agar banner tampil pada layar sebelum proses booting dilanjutkan. Hanya satu baris ini yang ditambahkan untuk menjaga skrip tetap sederhana dan sesuai fungsi.
+  Kemudian, pada code 4, file init diberikan hak akses eksekusi agar dapat dijalankan oleh sistem saat proses inisialisasi.
+  Terakhir, pada code 5, seluruh isi direktori sistem dikompresi ulang menggunakan cpio dan gzip untuk menghasilkan berkas initramfs yang akan digunakan saat proses boot berlangsung.
+  Dengan tahapan-tahapan ini, banner ASCII Art ditampilkan secara otomatis setiap kali sistem melakukan booting, sesuai dengan permintaan soal.
 
 - **Screenshot:**
 
@@ -339,19 +333,34 @@ Dengan tahapan-tahapan ini, banner ASCII Art ditampilkan secara otomatis setiap 
 
 - **Code:**
 
-  `put your answer here`
+Code 1
+  ```
+  cat > ~/osboot/BudiBebanKelompok/etc/profile <<'EOF'
+  #!/bin/sh
+  echo ""
+  echo "Helloo $(whoami)!"
+  echo "Waktu: $(date)"
+  echo ""
+  EOF
+  ```
+  Code 2
+  ```
+  chmod 755 ~/osboot/BudiBebanKelompok/etc/profile
+  ```
+  Code 3
+  ```
+  cd ~/osboot/BudiBebanKelompok
+  find . | cpio -oHnewc | gzip > ../BudiBebanKelompok.gz
+  ```
 
 - **Explanation:**
 
-Untuk menambahkan fitur kata sambutan setelah login, dilakukan beberapa tahapan konfigurasi sebagai berikut:
+  Untuk menambahkan fitur kata sambutan setelah login, dilakukan beberapa tahapan konfigurasi sebagai berikut:
 
-Pada code 1, dibuat file profile di dalam direktori /etc. File ini berfungsi sebagai skrip yang akan dijalankan secara otomatis setiap kali seorang pengguna berhasil login melalui terminal. Di dalam skrip tersebut ditambahkan perintah echo "Helloo $(whoami)!" untuk menyapa pengguna berdasarkan nama login yang aktif, serta menampilkan waktu login melalui perintah date.
-
-Selanjutnya, pada code 2, file profile diberikan hak akses eksekusi agar dapat dijalankan oleh shell login secara otomatis. Hak akses ini penting agar sistem dapat mengeksekusi skrip tersebut tanpa kendala.
-
-Terakhir, pada code 3, seluruh isi direktori sistem dikompresi ulang menjadi berkas initramfs menggunakan perintah cpio dan gzip. Hal ini diperlukan agar perubahan yang dilakukan terhadap sistem dapat diterapkan saat proses booting berikutnya.
-
-Dengan langkah-langkah ini, sistem akan menampilkan kalimat sambutan yang bersifat personal setiap kali pengguna login, sebagaimana diminta dalam soal.
+  Pada code 1, dibuat file profile di dalam direktori /etc. File ini berfungsi sebagai skrip yang akan dijalankan secara otomatis setiap kali seorang pengguna berhasil login melalui terminal. Di dalam skrip  tersebut ditambahkan perintah echo "Helloo $(whoami)!" untuk menyapa pengguna berdasarkan nama login yang aktif, serta menampilkan waktu login melalui perintah date.
+  Selanjutnya, pada code 2, file profile diberikan hak akses eksekusi agar dapat dijalankan oleh shell login secara otomatis. Hak akses ini penting agar sistem dapat mengeksekusi skrip tersebut tanpa kendala.
+  Terakhir, pada code 3, seluruh isi direktori sistem dikompresi ulang menjadi berkas initramfs menggunakan perintah cpio dan gzip. Hal ini diperlukan agar perubahan yang dilakukan terhadap sistem dapat diterapkan saat proses booting berikutnya.
+  Dengan langkah-langkah ini, sistem akan menampilkan kalimat sambutan yang bersifat personal setiap kali pengguna login, sebagaimana diminta dalam soal.
 
 - **Screenshot:**
 
@@ -370,15 +379,100 @@ Dengan langkah-langkah ini, sistem akan menampilkan kalimat sambutan yang bersif
 
 - **Code:**
 
-  `put your answer here`
+Code 1
+  ```
+  echo $TERM
+  ```
+  Code 2
+  ```
+  cat > ~/osboot/BudiBebanKelompok/init <<'EOF'
+  #!/bin/sh
+
+  mount -t proc none /proc
+  mount -t sysfs none /sys
+  mount -t devtmpfs none /dev
+
+  hostname BudiBebanOS
+
+  export TERM=xterm-256color
+  export COLORTERM=truecolor
+
+  clear
+  cat /etc/banner.txt
+  echo -e "\nSystem initializing...\n"
+
+  for tty in tty1 tty2 tty3 tty4 tty5
+  do
+      while true; do
+          /bin/getty -L $tty 115200 xterm-256color
+          sleep 1
+      done &
+  done
+  
+  wait
+  EOF
+  ```
+  Code 3
+  ```
+  cat > ~/osboot/BudiBebanKelompok/etc/profile <<'EOF'
+  #!/bin/sh
+  
+  export TERM=xterm-256color
+  export PS1='\[\e[1;32m\]\u@\h\[\e[0m\]:\[\e[1;34m\]\w\[\e[0m\]\$ '
+  alias ls='ls --color=auto'
+  
+  echo -e "\e[1;36m"
+  cat /etc/banner.txt
+  echo -e "\e[0m"
+
+  echo -e "\e[1;33mHelloo \e[1;35m$(whoami)\e[0m!"
+  echo -e "Waktu: \e[1;32m$(date)\e[0m"
+  echo ""
+  EOF
+  ```
+Code 4
+  ```
+  mkdir -p ~/osboot/BudiBebanKelompok/etc/skel
+  cat > ~/osboot/BudiBebanKelompok/etc/skel/.bashrc <<'EOF'
+
+  if [ "$TERM" = "xterm-256color" ]; then
+      alias ls='ls --color=auto'
+      alias grep='grep --color=auto'
+      alias fgrep='fgrep --color=auto'
+      alias egrep='egrep --color=auto'
+  fi
+  EOF
+  ```
+  Code 5
+  ```
+  cd ~/osboot/BudiBebanKelompok
+  find . | cpio -oHnewc | gzip > ../BudiBebanKelompok.gz
+  ```
 
 - **Explanation:**
 
-  `put your answer here`
+  Untuk meningkatkan keterbacaan tampilan terminal bagi Dosen Budiman, dilakukan serangkaian konfigurasi agar sistem operasi menggunakan profil terminal xterm-256color dengan dukungan warna penuh. Penyesuaian ini dilakukan melalui lima tahap berikut:
+
+  Pada code 1, dilakukan identifikasi jenis terminal yang digunakan oleh sistem pengembang menggunakan perintah echo $TERM. 
+
+  Selanjutnya, pada code 2, dilakukan modifikasi terhadap file init dengan menambahkan dua baris ekspor variabel lingkungan: TERM=xterm-256color dan COLORTERM=truecolor. Nilai-nilai ini menetapkan standar tampilan terminal selama proses boot berlangsung. Selain itu, program getty juga dijalankan dengan argumen terminal yang sesuai agar seluruh terminal virtual menggunakan konfigurasi warna tersebut.
+
+  Pada code 3, file profile diperbarui untuk memberikan tampilan berwarna setelah login. Variabel PS1 diatur ulang agar prompt pengguna tampil dengan kombinasi warna yang kontras. Selain itu, alias ls ditambahkan agar hasil daftar direktori berwarna. Banner ditampilkan dengan warna cyan, dan sambutan login dicetak dengan warna yang berbeda-beda untuk meningkatkan visibilitas.
+
+  Kemudian, pada code 4, dibuat file .bashrc di dalam direktori etc/skel. File ini akan disalin secara otomatis ke direktori home pengguna baru. Di dalamnya terdapat konfigurasi alias dan dukungan warna tambahan untuk perintah seperti grep, fgrep, dan egrep, yang akan aktif jika terminal mendukung warna.
+
+  Terakhir, pada code 5, disalin beberapa file pendukung dari sistem host ke dalam sistem operasi Budiman, yakni berkas biner ls dan file terminfo untuk xterm-256color. Hal ini penting agar perintah ls berfungsi dengan benar dan terminal dapat mengenali tipe warna yang digunakan.
+
+  Dengan seluruh tahapan tersebut, sistem operasi Budiman kini mendukung tampilan terminal berwarna yang lebih jelas dan mudah dibaca, sehingga lebih ramah untuk pengguna lansia seperti Dosen Budiman.
 
 - **Screenshot:**
 
-  `put your answer here`
+  <div align="center">
+  <img src="https://github.com/user-attachments/assets/8bb15a29-ce44-4a13-97b0-7a5f75a6eb80" width="1200" />
+</div>
+  <div align="center">
+  <img src="https://github.com/user-attachments/assets/11d1253a-0a55-45fe-93e7-053c25a2b7c8" width="1200" />
+</div>
 
 ### Soal 9
 
