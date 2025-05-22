@@ -255,16 +255,88 @@ Langkah ini saya lakukan untuk memastikan bahwa dalam sistem operasi ini, hanya 
 **Answer:**
 
 - **Code:**
+  
+  Code 1
+  ```
+  cat > ~/osboot/BudiBebanKelompok/etc/banner.txt <<'EOF'
+   _    _      _                            _          _____ _____ _ _____  _____ 
+  | |  | |    | |                          | |        |  _  /  ___( ) __  \|  ___|
+  | |  | | ___| | ___ ___  _ __ ___   ___  | |_ ___   | | | \ `--.|/`' / /'|___ \ 
+  | |/\| |/ _ \ |/ __/ _ \| '_ ` _ \ / _ \ | __/ _ \  | | | |`--. \   / /      \ \
+  \  /\  /  __/ | (_| (_) | | | | | |  __/ | || (_) | \ \_/ /\__/ / ./ /___/\__/ /
+   \/  \/ \___|_|\___\___/|_| |_| |_|\___|  \__\___/   \___/\____/  \_____/\____/ 
+  EOF
+  ```
+  Code 2
+  ```
+  cat > ~/osboot/BudiBebanKelompok/init <<'EOF'
+  #!/bin/sh
 
-  `put your answer here`
+  mount -t proc none /proc
+  mount -t sysfs none /sys
+  mount -t devtmpfs none /dev
+
+  hostname BudiBebanOS
+
+  clear
+  cat /etc/banner.txt
+  echo -e "\nBooting BudiBebanOS...\n"
+
+  for tty in tty1 tty2 tty3 tty4 tty5
+  do
+      while true; do
+          /bin/getty -L $tty 115200 vt100
+          sleep 1
+      done &
+  done
+
+  wait
+  EOF
+  ```
+  Code 3
+  ```
+  cat > ~/osboot/BudiBebanKelompok/etc/profile <<'EOF'
+  #!/bin/sh
+
+  clear
+  cat /etc/banner.txt
+  echo ""
+  echo "=== Selamat Datang di BudiBebanOS ==="
+  echo "User    : $(whoami)"
+  echo "Waktu   : $(date)"
+  echo "Hostname: $(hostname)"
+  echo ""
+  EOF
+  ```
+  Code 4
+  ```
+  chmod 644 ~/osboot/BudiBebanKelompok/etc/banner.txt
+  chmod 755 ~/osboot/BudiBebanKelompok/etc/profile
+  chmod +x ~/osboot/BudiBebanKelompok/init
+  ```
+  Code 5
+  ```
+  cd ~/osboot/BudiBebanKelompok
+  find . | cpio -oHnewc | gzip > ../BudiBebanKelompok.gz
+  ```
 
 - **Explanation:**
 
-  `put your answer here`
+  Untuk menampilkan banner ASCII Art bertuliskan "Welcome to OS'25", dilakukan beberapa langkah modifikasi terhadap sistem:
+
+  Pada code 1, dibuat sebuah file bernama banner.txt yang berisi teks dalam bentuk ASCII Art menggunakan generator daring. File ini diletakkan pada direktori /etc agar dapat diakses baik saat proses boot maupun setelah login.
+
+  Selanjutnya, pada code 2, file init dimodifikasi dengan menambahkan perintah cat /etc/banner.txt dan clear sebelum menampilkan pesan booting. Hal ini bertujuan agar banner ditampilkan segera setelah sistem selesai melakukan proses mounting dan sebelum menjalankan terminal.
+
+  Kemudian, pada code 3, dilakukan modifikasi terhadap file profile agar banner yang sama juga ditampilkan setiap kali pengguna berhasil login. Selain banner, ditambahkan informasi tambahan seperti nama pengguna, waktu saat ini, dan hostname sistem.
+
+  Pada code 4, dilakukan penyesuaian hak akses terhadap file konfigurasi agar sistem dapat membaca dan menjalankan file dengan benar. Sedangkan pada code 5, direktori sistem dikompresi ulang menjadi berkas initramfs untuk digunakan dalam proses booting.
 
 - **Screenshot:**
 
-  `put your answer here`
+  <div align="center">
+  <img src="https://github.com/user-attachments/assets/26de5364-792e-4ba2-95ab-3be11d9ff80b" width="1200" />
+</div>
 
 ### Soal 7
 
