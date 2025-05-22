@@ -161,7 +161,7 @@ praktikan2:praktikan2
   <img src="https://github.com/user-attachments/assets/c9b6b269-e2d6-4ffc-a266-cce92b129b95" width="1200" />
 </div>
 
-<div align="center">
+  <div align="center">
   <img src="https://github.com/user-attachments/assets/aca41c5c-88c1-4fae-a55e-a93f73cc701f" width="1200" />
 </div>
 
@@ -178,15 +178,28 @@ praktikan2:praktikan2
 
 - **Code:**
 
-  `put your answer here`
+  ```
+  ls -ld ~/osboot/BudiBebanKelompok/home/root
+  ```
+  
+  ```
+  chown username:username /path/to/home/username
+  chmod 700 /path/to/home/username
+  ```
 
 - **Explanation:**
 
   `put your answer here`
+  
 
 - **Screenshot:**
 
-  `put your answer here`
+  <div align="center">
+  <img src="https://github.com/user-attachments/assets/98e399bc-8788-4e76-b75f-a3a926a6447b" width="1200" />
+</div>
+ <div align="center">
+  <img src="https://github.com/user-attachments/assets/534b0719-607f-4514-b5a9-9c9b9320acff" width="1200" />
+</div>
 
 ### Soal 5
 
