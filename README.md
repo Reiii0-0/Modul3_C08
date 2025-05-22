@@ -217,15 +217,34 @@ Langkah ini saya lakukan untuk memastikan bahwa dalam sistem operasi ini, hanya 
 
 - **Code:**
 
-  `put your answer here`
+  ```
+  chown 1000:100 ~/osboot/BudiBebanKelompok/home/Budiman
+  chmod 700 ~/osboot/BudiBebanKelompok/home/Budiman
+
+  chown 1001:100 ~/osboot/BudiBebanKelompok/home/guest
+  chmod 700 ~/osboot/BudiBebanKelompok/home/guest
+
+  chown 1002:100 ~/osboot/BudiBebanKelompok/home/praktikan1
+  chmod 700 ~/osboot/BudiBebanKelompok/home/praktikan1
+
+  chown 1003:100 ~/osboot/BudiBebanKelompok/home/praktikan2
+  chmod 700 ~/osboot/BudiBebanKelompok/home/praktikan2
+  ```
 
 - **Explanation:**
 
-  `put your answer here`
+  Pada tahap ini, saya mengatur agar setiap user hanya dapat mengakses direktori miliknya sendiri. Langkah ini dilakukan dengan menetapkan kepemilikan direktori home masing-masing user berdasarkan UID dan GID yang telah didefinisikan sebelumnya. Setelah itu, saya memberikan permission 700 pada direktori tersebut.
+
+  Permission 700 berarti hanya pemilik direktori yang dapat membaca, menulis, dan masuk ke dalam direktori tersebut. Dengan demikian, user lain tidak akan bisa mengakses isi direktori user lain, meskipun mereka berada dalam grup yang sama.
+
+  Pengaturan ini memastikan privasi dan pembatasan akses antar pengguna sesuai dengan prinsip sistem multiuser. Setiap user hanya dapat mengakses file dan direktori miliknya sendiri, sementara user lain tidak memiliki izin untuk mengakses direktori tersebut. Hal ini sesuai dengan permintaan soal untuk menjamin privasi dan otoritas masing-masing user.
 
 - **Screenshot:**
 
-  `put your answer here`
+
+  <div align="center">
+  <img src="https://github.com/user-attachments/assets/2bb21699-b4d7-49e3-9259-7bd4de237412" width="1200" />
+</div>
 
 ### Soal 6
 
