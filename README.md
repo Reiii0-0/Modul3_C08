@@ -63,7 +63,8 @@ _One sunny morning, Budiman, an Informatics student, was assigned by his lecture
 
 - **Screenshot:**
 
-  `put your answer here`
+  `![image](https://github.com/user-attachments/assets/07fff441-244d-4c7a-aa58-924f4b85c242)
+`
 
 ### Soal 3
 
