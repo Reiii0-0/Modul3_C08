@@ -55,7 +55,12 @@ _One sunny morning, Budiman, an Informatics student, was assigned by his lecture
 
 - **Code:**
 
-  `put your answer here`
+  ```
+  cd ~/osboot
+  mkdir -p BudiBebanKelompok
+  cd BudiBebanKelompok
+  mkdir -p {bin,dev,proc,sys,tmp,sisop}
+  ```
 
 - **Explanation:**
 
@@ -88,7 +93,9 @@ praktikan2:praktikan2
 
 - **Code:**
 
-  `put your answer here`
+  ```
+  
+  ````
 
 - **Explanation:**
 
@@ -96,7 +103,12 @@ praktikan2:praktikan2
 
 - **Screenshot:**
 
-  `put your answer here`
+  <div align="center">
+  <img src="https://github.com/user-attachments/assets/c9b6b269-e2d6-4ffc-a266-cce92b129b95" width="1200" />
+</div>
+
+  
+  
 
 ### Soal 4
 
