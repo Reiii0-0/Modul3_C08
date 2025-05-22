@@ -191,8 +191,11 @@ praktikan2:praktikan2
 - **Explanation:**
 
   > Pada tahap ini, saya tidak perlu lagi membuat user root menjadi superuser, karena secara default user root memang sudah merupakan superuser dengan UID 0. Hal ini juga telah diperkuat sebelumnya di soal nomor 3, di mana user root dimasukkan ke dalam grup dengan GID 0 pada file etc/group. Jadi, root sudah memiliki hak akses penuh ke seluruh sistem.
+  
   Untuk memastikan bahwa hanya user root yang memiliki akses terhadap direktori /root, saya pertama-tama memverifikasi permission-nya menggunakan perintah pada code 1, guna melihat apakah direktori tersebut memang sudah dibatasi aksesnya. Hasil dari perintah tersebut menunjukkan bahwa direktori belum sepenuhnya eksklusif untuk root.
+
   Oleh karena itu, pada code 2, saya melakukan dua langkah: mengatur kepemilikan direktori home/root agar dimiliki oleh user dan grup root, dan kemudian mengatur permission-nya agar hanya root yang dapat mengaksesnya. Dengan begitu, seluruh user selain root, termasuk Budiman, guest, praktikan1, dan praktikan2, tidak akan bisa mengakses direktori ./root.
+
  Langkah ini saya lakukan untuk memastikan bahwa dalam sistem operasi ini, hanya superuser yang memiliki akses penuh, dan user lain tidak memiliki otoritas yang sama sebagaimana diminta dalam soal.!
   
 
