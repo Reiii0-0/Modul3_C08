@@ -94,7 +94,61 @@ praktikan2:praktikan2
 - **Code:**
 
   ```
+  cp -a /dev/null ~/osboot/BudiBebanKelompok/dev
+  cp -a /dev/tty* ~/osboot/BudiBebanKelompok/dev
+  cp -a /dev/zero ~/osboot/BudiBebanKelompok/dev
+  cp -a /dev/console ~/osboot/BudiBebanKelompok/dev 
+  cp /usr/bin/busybox ~/osboot/BudiBebanKelompok/bin
+  cd ~/osboot/BudiBebanKelompok/bin
+  ./busybox --install .
+  ```
+
+  ```
+  cd ~/osboot/BudiBebanKelompok
+  mkdir -p etc
+  ```
+
+  ```
+  openssl passwd -1 root 
+  openssl passwd -1 Budiman
+  openssl passwd -1 guest
+  openssl passwd -1 praktikan1
+  openssl passwd -1 praktikan2
+  ```
+
+  ```
+  cat > ~/osboot/BudiBebanKelompok/etc/passwd <<EOF
+  root:\$1\$TKx.WnGZ\$ESh1cSd72LGZxJYFAFcOD0:0:0:root:/root:/bin/sh
+  Budiman:\$1\$hjXyqCxc\$Is4q5xLrgxzvIC3Jyga02/:1000:100:Budiman:/home/Budiman:/bin/sh
+  guest:\$1\$hFqXaXPq\$jjxY7HX/GEQte1SzCmZBH1:1001:100:Guest:/home/guest:/bin/sh
+  praktikan1:\$1\$fE64xkWL\$npQg.rIItYCk9INlZ8mE21:1002:100:Praktikan 1:/home/praktikan1:/bin/sh
+  praktikan2:\$1\$pucNMrNN\$Y5WsJetyLbCPda6O2wfqt.:1003:100:Praktikan 2:/home/praktikan2:/bin/sh
+  EOF
+  ```
+
+  ```
+  cat > ~/osboot/BudiBebanKelompok/init <<'EOF'
+  #!/bin/sh
   
+  mount -t proc none /proc
+  mount -t sysfs none /sys
+  mount -t devtmpfs none /dev
+  
+  hostname BudiBebanOS
+  
+  for tty in tty1 tty2 tty3 tty4 tty5
+  do
+      while true; do
+          /bin/getty -L $tty 115200 vt100
+          sleep 1
+      done &
+  done
+  
+  wait
+  EOF
+
+  chmod +x ~/osboot/BudiBebanKelompok/init
+
   ````
 
 - **Explanation:**
@@ -105,6 +159,10 @@ praktikan2:praktikan2
 
   <div align="center">
   <img src="https://github.com/user-attachments/assets/c9b6b269-e2d6-4ffc-a266-cce92b129b95" width="1200" />
+</div>
+
+<div align="center">
+  <img src="  https://github.com/user-attachments/assets/aca41c5c-88c1-4fae-a55e-a93f73cc701f" width="1200" />
 </div>
 
   
