@@ -23,18 +23,19 @@ _One sunny morning, Budiman, an Informatics student, was assigned by his lecture
 
 - **Code:**
 
-  `sudo apt -y update
+  ```
+  sudo apt -y update
   sudo apt -y install qemu-system build-essential bison flex libelf-dev libssl-dev bc grub-common grub-pc libncurses-dev libssl-dev mtools grub-pc-bin xorriso tmux
   mkdir -p osboot
   cd osboot
   wget https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.1.tar.xz
-tar -xvf linux-6.1.1.tar.xz
+  tar -xvf linux-6.1.1.tar.xz
   cd linux-6.1.1
   make tinyconfig
   make menuconfig
   make -j$(nproc)
   cp arch/x86/boot/bzImage ..
-  `
+  ```
 
 - **Explanation:**
 
