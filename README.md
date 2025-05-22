@@ -177,11 +177,12 @@ praktikan2:praktikan2
 **Answer:**
 
 - **Code:**
-
+  
+  Code 1
   ```
   ls -ld ~/osboot/BudiBebanKelompok/home/root
   ```
-  
+  Code 2
   ```
   chown username:username /path/to/home/username
   chmod 700 /path/to/home/username
