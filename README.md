@@ -64,6 +64,9 @@ _One sunny morning, Budiman, an Informatics student, was assigned by his lecture
 - **Screenshot:**
 
   `![No2](https://github.com/user-attachments/assets/c8861744-89ba-4b8e-b85d-f9293a251a4e)`
+  <div align="center">
+  <img src="https://github.com/user-attachments/assets/c8861744-89ba-4b8e-b85d-f9293a251a4e" width="400" />
+</div>
 
 
 ### Soal 3
