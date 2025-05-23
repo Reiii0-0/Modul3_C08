@@ -38,8 +38,21 @@ _One sunny morning, Budiman, an Informatics student, was assigned by his lecture
   ```
 
 - **Explanation:**
+  
+  Dalam rangka pembangunan sistem operasi berbasis kernel Linux minimal, tahap awal yang sangat krusial adalah persiapan seluruh prasyarat sistem dan instalasi perangkat lunak pendukung. Hal ini tidak hanya untuk memastikan lingkungan pengembangan siap digunakan, tetapi juga agar seluruh dependensi teknis yang dibutuhkan oleh kernel dan sistem init dapat terpenuhi dengan baik.
 
-  `put your answer here`
+  Langkah-langkah yang dilakukan dapat diklasifikasikan ke dalam beberapa bagian sebagai berikut:
+  Pembaruan dan Instalasi Paket-paket Pendukung (Lihat Code 1)
+Tahap pertama adalah melakukan pembaruan indeks repositori paket sistem (apt update) serta melakukan instalasi berbagai paket esensial. Beberapa di antaranya adalah qemu-system (untuk virtualisasi dan emulasi sistem), build-essential (untuk kompilasi), bison, flex, libelf-dev, libssl-dev, serta bc, grub, dan xorriso sebagai bagian dari alat bantu pembuatan image bootable. Tanpa dependensi ini, proses kompilasi kernel maupun pembuatan file .iso tidak dapat dilaksanakan.
+
+  Pembuatan Direktori Kerja (Lihat Code 2)
+Setelah lingkungan pengembangan siap, dibuatlah direktori osboot sebagai workspace utama proyek sistem operasi Budiman. Seluruh file hasil ekstraksi kernel, kompilasi, hingga hasil akhir ISO akan dikelola di dalam direktori ini.
+
+  Pengunduhan dan Ekstraksi Kernel Linux (Lihat Code 3)
+Kernel Linux versi 6.1.1 diunduh langsung dari sumber resmi (cdn.kernel.org). Proses ini dilakukan untuk menjamin bahwa kernel yang digunakan adalah versi terbaru yang stabil dan mendukung konfigurasi tinyconfig.
+
+  Konfigurasi dan Kompilasi Kernel (Lihat Code 4)
+Kernel kemudian dikonfigurasi secara minimal menggunakan perintah make tinyconfig, dilanjutkan dengan make menuconfig untuk menyesuaikan konfigurasi build secara manual. Setelah konfigurasi selesai, kernel dikompilasi menggunakan semua thread CPU yang tersedia dengan make -j$(nproc). Output berupa bzImage kemudian disalin keluar direktori kernel untuk digunakan sebagai kernel boot image pada sistem operasi Budiman.
 
 - **Screenshot:**
 
@@ -59,12 +72,16 @@ _One sunny morning, Budiman, an Informatics student, was assigned by his lecture
   cd ~/osboot
   mkdir -p BudiBebanKelompok
   cd BudiBebanKelompok
-  mkdir -p {bin,dev,proc,sys,tmp,sisop}
+  mkdir -p bin dev proc sys tmp sisop home/root home/Budiman home/guest home/praktikan1 home/praktikan2
   ```
 
 - **Explanation:**
 
-  `put your answer here`
+  Dalam pengembangan sistem operasi minimal, penyusunan struktur direktori yang sesuai dengan standar sistem UNIX merupakan langkah awal yang fundamental. Direktori-direktori utama seperti bin, dev, proc, sys, tmp, dan direktori tambahan seperti sisop diperlukan untuk menunjang fungsionalitas dasar sistem. Oleh karena itu, berdasarkan arahan dari dosen pembimbing, dilakukan proses pembuatan direktori tersebut dalam direktori utama root filesystem sistem operasi Budiman.
+
+  Pertama-tama, berdasarkan Code, dilakukan navigasi ke dalam direktori kerja utama sistem operasi, yakni osboot, dan kemudian dibuat sebuah direktori baru yang akan menjadi root filesystem sistem operasi Budiman, yaitu BudiBebanKelompok. Setelah itu, dilakukan pembuatan direktori secara bersamaan menggunakan parameter -p dan ekspansi shell {} yang memungkinkan penciptaan banyak direktori dalam satu perintah. Direktori bin disiapkan untuk menampung binary executable, dev untuk file perangkat, proc dan sys untuk filesystem virtual kernel, tmp untuk menyimpan file sementara, serta sisop sebagai direktori khusus yang mungkin digunakan untuk kebutuhan internal sistem atau pengujian sesuai spesifikasi proyek.
+
+  Namun demikian, agar sistem ini dapat mendukung sistem multi-user secara penuh, diperlukan pula pembuatan direktori home, yang secara konvensional digunakan sebagai tempat penyimpanan home directory untuk setiap pengguna. Oleh karena itu, direktori home juga ditambahkan dalam proses inisialisasi struktur sistem file. Dalam direktori home tersebut, dibuat subdirektori untuk masing-masing pengguna yang telah ditentukan sebelumnya: root, Budiman, guest, praktikan1, dan praktikan2. Setiap direktori tersebut akan berfungsi sebagai lingkungan kerja privat untuk masing-masing user, di mana data pribadi, konfigurasi shell, dan file pengguna lainnya dapat disimpan secara terisolasi.
 
 - **Screenshot:**
 
@@ -92,7 +109,7 @@ praktikan2:praktikan2
 **Answer:**
 
 - **Code:**
-
+  Code 1
   ```
   cp -a /dev/null ~/osboot/BudiBebanKelompok/dev
   cp -a /dev/tty* ~/osboot/BudiBebanKelompok/dev
@@ -102,12 +119,12 @@ praktikan2:praktikan2
   cd ~/osboot/BudiBebanKelompok/bin
   ./busybox --install .
   ```
-
+  Code 2
   ```
   cd ~/osboot/BudiBebanKelompok
   mkdir -p etc
   ```
-
+  Code 3
   ```
   openssl passwd -1 root 
   openssl passwd -1 Budiman
@@ -115,7 +132,7 @@ praktikan2:praktikan2
   openssl passwd -1 praktikan1
   openssl passwd -1 praktikan2
   ```
-
+  Code 4
   ```
   cat > ~/osboot/BudiBebanKelompok/etc/passwd <<EOF
   root:\$1\$TKx.WnGZ\$ESh1cSd72LGZxJYFAFcOD0:0:0:root:/root:/bin/sh
@@ -125,7 +142,7 @@ praktikan2:praktikan2
   praktikan2:\$1\$pucNMrNN\$Y5WsJetyLbCPda6O2wfqt.:1003:100:Praktikan 2:/home/praktikan2:/bin/sh
   EOF
   ```
-
+  Code 5
   ```
   cat > ~/osboot/BudiBebanKelompok/init <<'EOF'
   #!/bin/sh
@@ -153,7 +170,17 @@ praktikan2:praktikan2
 
 - **Explanation:**
 
-  `put your answer here`
+  Salah satu aspek penting dalam pembangunan sistem operasi yang bersifat general-purpose adalah kemampuan untuk mendukung sistem Multi User, yaitu sebuah sistem yang dapat digunakan oleh lebih dari satu pengguna dengan identitas, direktori rumah (home directory), dan hak akses masing-masing. Permintaan ini sebelumnya belum diimplementasikan dalam sistem operasi Budiman, sehingga perlu dilakukan konfigurasi tambahan untuk mendukung fitur tersebut.
+
+  Langkah awal yang dilakukan untuk menyiapkan sistem multi-user adalah dengan memastikan bahwa seluruh perangkat-perangkat device penting yang diperlukan oleh shell dan utilitas dasar tersedia dalam direktori root filesystem. Proses ini dicapai melalui Code 1, yaitu dengan menyalin beberapa entri dari direktori /dev serta menginstal utilitas BusyBox, yang bertindak sebagai pengganti berbagai perintah UNIX standar dalam satu binary tunggal. Hal ini dilakukan agar perintah-perintah seperti getty, sh, dan lainnya dapat digunakan oleh semua user nantinya.
+
+  Selanjutnya, struktur dasar sistem file untuk konfigurasi disiapkan dengan membuat direktori etc sebagaimana dijelaskan pada Code 2. Direktori ini akan menyimpan berkas konfigurasi pengguna yang penting, seperti passwd.
+
+  Untuk menjamin keamanan akun pengguna, setiap user diberikan password yang dienkripsi menggunakan algoritma MD5-based hashing, sesuai implementasi dalam Code 3. Proses ini dilakukan dengan menggunakan utilitas openssl, dan hasil enkripsi kemudian digunakan sebagai input dalam pembuatan berkas passwd.
+
+  Tahap berikutnya adalah pembuatan berkas passwd itu sendiri, sebagaimana dijelaskan dalam Code 4. Berkas ini berisi informasi tentang setiap user dalam format standar UNIX: username:encrypted_password:UID:GID:comment:home_directory:shell. Setiap pengguna diberikan direktori home masing-masing di bawah /home, dan shell login yang digunakan adalah /bin/sh. Informasi ini tidak hanya memungkinkan login user, tetapi juga mengatur hak akses dan lingkungan kerja masing-masing pengguna.
+
+  Terakhir, agar sistem mampu memuat semua konfigurasi pengguna dengan baik saat proses booting, dilakukan modifikasi pada berkas init, yaitu skrip utama yang dijalankan saat sistem menyala (lihat Code 5). Pada skrip ini, sistem melakukan mounting terhadap filesystem virtual seperti /proc, /sys, dan /dev, serta menjalankan proses getty pada beberapa terminal (tty) secara paralel. Hal ini memungkinkan login multi-user secara simultan melalui berbagai virtual console.
 
 - **Screenshot:**
 
@@ -588,7 +615,7 @@ Code 4
 
 ---
 
-> End product
+### End product_
     <div align="center">
   <img src="https://github.com/user-attachments/assets/74cc614e-2975-4e88-886c-549b9944e40f" width="1200" />
 </div>
