@@ -3,7 +3,7 @@
 | :--------: |      :---------------:      |
 | 5025241131 |      Rafly Al Fahrezi       |
 | 5025241135 |      Farikh Muhammad Fauzan |
-| 5025221000 |      Student 3 Name         |
+| 5025241175 |      Derryell Josua Ekklesio Pandiangan         |
 
 # Praktikum Modul 3 _(Module 3 Lab Work)_
 
