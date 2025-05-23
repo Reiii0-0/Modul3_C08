@@ -514,7 +514,15 @@ Code 4
 
 - **Explanation:**
 
-  `put your answer here`
+  Dalam proses pengembangan sistem operasi minimal berbasis Linux, salah satu permasalahan yang ditemukan adalah tidak tersedianya fasilitas untuk melakukan penyuntingan berkas teks secara langsung di dalam sistem. Hal ini menjadi kendala ketika pengguna, dalam hal ini Budiman, ingin mengubah isi berkas teks namun tidak dapat melakukannya karena sistem belum dilengkapi dengan text editor bawaan. Untuk itu, diperlukan langkah tambahan guna mengintegrasikan text editor ke dalam lingkungan sistem operasi tersebut.
+
+  Langkah pertama yang dilakukan adalah menyalin berkas binary dari aplikasi nano, yang merupakan salah satu text editor terminal ringan dan umum digunakan, ke dalam direktori root filesystem dari sistem operasi Budiman. Proses ini tercantum pada Code 1 dan bertujuan agar binary nano tersedia dan dapat dieksekusi langsung di dalam sistem operasi saat dijalankan.
+
+  Selanjutnya, untuk memastikan binary yang telah ditambahkan tersebut memiliki hak akses eksekusi yang sesuai, dilakukan penyesuaian permission sebagaimana dijelaskan dalam Code 2. Hal ini penting agar pengguna sistem dapat menjalankan program nano tanpa kendala hak akses.
+
+  Agar penggunaan text editor ini lebih intuitif bagi pengguna, kemudian dilakukan modifikasi terhadap berkas konfigurasi shell login yang berada di dalam root filesystem sistem operasi, yaitu berkas profile. Dalam modifikasi ini (Code 3), ditambahkan alias edit yang merujuk langsung pada program nano, sehingga pengguna cukup mengetikkan perintah edit untuk memanggil text editor. Selain itu, pada berkas konfigurasi tersebut juga dilakukan penyesuaian terhadap tampilan shell seperti warna teks dan penambahan sambutan saat login guna meningkatkan pengalaman pengguna.
+
+  Dengan dilaksanakannya ketiga tahapan tersebut, maka sistem operasi Budiman kini telah dilengkapi dengan text editor fungsional yang dapat digunakan untuk menyunting berkas teks secara langsung di lingkungan terminal, sesuai dengan kebutuhan pengguna dan permintaan soal.
 
 - **Screenshot:**
 
@@ -562,7 +570,15 @@ Code 4
   
 - **Explanation:**
 
-  `put your answer here`
+  Setelah seluruh fungsionalitas utama dari sistem operasi Budiman berhasil diimplementasikan, tahapan akhir dari pengembangan ini adalah melakukan proses packaging sistem ke dalam bentuk berkas image .iso. Hal ini dilakukan untuk memenuhi ketentuan pengumpulan tugas dari pihak dosen yang mensyaratkan bentuk akhir berupa berkas image bootable, yang dapat dijalankan melalui emulator ataupun ditulis ke media fisik seperti USB dan CD/DVD.
+
+  Proses konversi konfigurasi sistem operasi menjadi file .iso diawali dengan memastikan bahwa seluruh kegiatan dilakukan pada direktori kerja utama, sebagaimana ditunjukkan pada Code 1. Selanjutnya, dibentuklah struktur direktori yang menyerupai sistem bootable standar, yakni direktori boot dan subdirektori grub sebagai lokasi penyimpanan bootloader GRUB (Code 2). Struktur ini sangat penting karena GRUB memerlukan format direktori tertentu agar dapat dikenali saat proses booting.
+
+  Langkah berikutnya adalah menyalin file kernel (bzImage) dan root filesystem dalam bentuk compressed cpio archive (BudiBebanKelompok.gz) ke dalam direktori boot. Proses ini dijelaskan dalam Code 3, di mana kedua file tersebut merupakan komponen utama yang akan dijalankan oleh bootloader.
+
+  Agar sistem dapat diboot secara otomatis dan terkonfigurasi dengan benar, dibuatlah berkas konfigurasi grub.cfg sebagaimana dijelaskan pada Code 4. Berkas ini berfungsi untuk memberikan instruksi kepada GRUB mengenai kernel yang akan dijalankan dan initrd yang harus dimuat selama proses boot. Selain itu, konfigurasi ini juga menentukan tampilan menu awal serta pilihan default yang akan dijalankan secara otomatis.
+
+  Tahapan terakhir adalah melakukan pembuatan berkas .iso menggunakan tool grub-mkrescue sebagaimana tertera pada Code 5. Perintah ini akan menggabungkan seluruh struktur direktori, kernel, initrd, serta konfigurasi GRUB ke dalam satu berkas .iso yang dapat langsung digunakan sebagai media bootable.
 
 - **Screenshot:**
 
