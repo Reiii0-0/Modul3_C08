@@ -483,8 +483,34 @@ Code 4
 **Answer:**
 
 - **Code:**
+  Code 1
+  ```
+  cp /usr/bin/nano /home/rei/osboot/BudiBebanKelompok/bin/
+  ```
+  Code 2
+  ```
+  chmod +x /home/rei/osboot/BudiBebanKelompok/bin/texteditor
+  ```
+  Code 3
+  ```
+  nano /home/rei/osboot/BudiBebanKelompok/etc/profile
+  #!/bin/sh
+  
+  export TERM=xterm-256color
+  export PS1='\[\e[1;32m\]\u@\h\[\e[0m\]:\[\e[1;34m\]\w\[\e[0m\]\$ '
+  alias ls='ls --color=auto'
+  
+  echo -e "\e[1;36m"
+  cat /etc/banner.txt
+  echo -e "\e[0m"
 
-  `put your answer here`
+  echo -e "\e[1;33mHelloo \e[1;35m$(whoami)\e[0m!"
+  echo -e "Waktu: \e[1;32m$(date)\e[0m"
+  echo ""
+
+  alias edit='nano'
+
+  ```
 
 - **Explanation:**
 
@@ -492,7 +518,9 @@ Code 4
 
 - **Screenshot:**
 
-  `put your answer here`
+  <div align="center">
+  <img src="https://github.com/user-attachments/assets/7b4e1a7c-f57a-4be6-bd4c-a4a5d7328218" width="1200" />
+</div>
 
 ### Soal 10
 
@@ -503,18 +531,52 @@ Code 4
 **Answer:**
 
 - **Code:**
-
-  `put your answer here`
-
+  Code 1
+  ```
+  cd /home/rei/osboot
+  ```
+   Code 2
+  ```
+   mkdir -p mylinuxiso/boot/grub
+  ```
+  Code 3
+  ```
+  cp bzImage mylinuxiso/boot/
+  cp BudiBebanKelompok.gz mylinuxiso/boot/
+  ```
+  Code 4
+  ```
+  nano mylinuxiso/boot/grub/grub.cfg
+  set timeout=5
+  set default=0
+  
+  menuentry "Budiman OS" {
+    linux /boot/bzImage
+    initrd /boot/BudiBebanKelompok.gz
+  }
+  ```
+  Code 5
+  ```
+  grub-mkrescue -o BudimanOS.iso mylinuxiso
+  ```
+  
 - **Explanation:**
 
   `put your answer here`
 
 - **Screenshot:**
 
-  `put your answer here`
+  <div align="center">
+  <img src="https://github.com/user-attachments/assets/10455f48-67cc-44b8-8527-037b9243e22e" width="1200" />
+</div>
 
 ---
+
+> End product
+    <div align="center">
+  <img src="https://github.com/user-attachments/assets/74cc614e-2975-4e88-886c-549b9944e40f" width="1200" />
+</div>
+
 
 Pada akhirnya sistem operasi Budiman yang telah kamu buat dengan susah payah dikumpulkan ke Dosen mengatasnamakan Budiman. Kamu tidak diberikan credit apapun. Budiman pun tidak memberikan kata terimakasih kepadamu. Kamupun kecewa tetapi setidaknya kamu telah belajar untuk menjadi pembuat sistem operasi sederhana yang andal. Selamat!
 
