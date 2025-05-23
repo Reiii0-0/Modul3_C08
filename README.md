@@ -211,8 +211,8 @@ praktikan2:praktikan2
   ```
   Code 2
   ```
-  chown username:username /path/to/home/username
-  chmod 700 /path/to/home/username
+  chown root:root ~/osboot/BudiBebanKelompok/home/root
+  chmod 700 ~/osboot/BudiBebanKelompok/home/root
   ```
 
 - **Explanation:**
