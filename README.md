@@ -615,8 +615,8 @@ Code 4
 
 ---
 
-### End product_
-    <div align="center">
+### End product
+  <div align="center">
   <img src="https://github.com/user-attachments/assets/74cc614e-2975-4e88-886c-549b9944e40f" width="1200" />
 </div>
 
